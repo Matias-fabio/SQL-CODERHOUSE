@@ -1,13 +1,12 @@
- 
+
 DROP DATABASE IF EXISTS workshop;
 CREATE DATABASE workshop;
 
 USE workshop;
 CREATE TABLE IF NOT EXISTS workshop.pais (
 	id_pais INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    pais VARCHAR(20) NOT NULL,
-    
-);
+    pais VARCHAR(20) NOT NULL
+    );
 
 CREATE TABLE IF NOT EXISTS workshop.usuarios (
 	id_usuario INT AUTO_INCREMENT,
@@ -37,15 +36,15 @@ CREATE TABLE IF NOT EXISTS workshop.genero_juegos (
 
 CREATE TABLE IF NOT EXISTS workshop.juegos (
 	id_juego INT AUTO_INCREMENT,
-    nombre_juego VARCHAR(30) NOT NULL,
-    descripcion VARCHAR(150) NOT NULL, 
+    nombre_juego VARCHAR(200) NOT NULL,
+    descripcion VARCHAR(350) NOT NULL, 
     id_empresa INT NOT NULL,
     id_genero_juego INT NOT NULL,
     fecha_creacion DATE,
     PRIMARY KEY (id_juego),
     INDEX juego (nombre_juego),
-    CONSTRAINT fk_nombre_empresa FOREIGN KEY (id_empresa) REFERENCES empresas (id_empresa) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_nombre_genero FOREIGN KEY (id_genero_juego) REFERENCES genero_juegos(id_genero) ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT fk_id_empresa FOREIGN KEY (id_empresa) REFERENCES empresas (id_empresa) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_id_genero FOREIGN KEY (id_genero_juego) REFERENCES genero_juegos(id_genero) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS workshop.reportes (
@@ -125,4 +124,3 @@ CREATE TABLE IF NOT EXISTS workshop.logros(
     CONSTRAINT fk_logro_juego FOREIGN KEY (id_juego) REFERENCES juegos (id_juego) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_logro_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
