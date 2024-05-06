@@ -71,6 +71,24 @@ END;
 DELIMITER ;
 
 
+
+-- TRIGGER para almacenar los usuarios que estan dados de bajas de una suscripcion
+CREATE TABLE IF NOT EXISTS workshop.usuarios_baja_suscripcion (
+    id_usuario INT NOT NULL,
+    fecha_baja DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+DELIMITER $$
+CREATE TRIGGER trg_usuario_baja_suscripcion
+AFTER DELETE ON suscripciones
+FOR EACH ROW
+BEGIN
+    INSERT INTO workshop.usuarios_baja_suscripcion (id_usuario) VALUES (OLD.id_usuario);
+END$$
+DELIMITER ;
+
+
 SHOW TRIGGERS;
 
 
